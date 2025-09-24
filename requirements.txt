@@ -1,0 +1,43 @@
+# Core dependencies
+numpy
+pandas
+torch
+transformers
+scipy
+scikit-learn
+xgboost
+tqdm
+pyyaml
+huggingface-hub
+tokenizers
+nltk
+psutil
+
+# For CUDA support (optional, comment out if not using GPU)
+# torch --index-url https://download.pytorch.org/whl/cu118
+
+# For paraphrasing (optional, uncomment if needed)
+# llama-cpp-python
+
+# For dataset downloading
+kaggle
+
+# For development (optional)
+# pytest
+# pytest-cov
+# black
+# flake8
+# mypy
+# isort
+# pre-commit
+
+# For notebooks (optional)
+# jupyter
+# ipykernel
+# matplotlib
+# seaborn
+
+# For documentation (optional)
+# sphinx
+# sphinx-rtd-theme
+# sphinx-autodoc-typehints

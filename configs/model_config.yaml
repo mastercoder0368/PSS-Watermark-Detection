@@ -1,0 +1,72 @@
+# Model Configuration for Watermarking and Paraphrasing
+
+# Watermark generation model
+watermark_model:
+  name: "meta-llama/Llama-2-7b-hf"
+  torch_dtype: "float16"
+  device_map: "auto"
+  use_fast_tokenizer: true
+
+# Watermark parameters
+watermark_params:
+  gamma: 0.25  # Proportion of green tokens
+  delta: 1.5   # Green list bias
+  z_threshold: 4.0  # Detection threshold
+  hash_key: 15485863  # Fixed hash key for reproducibility
+  seeding_scheme: "simple_1"
+  select_green_tokens: true
+
+# Generation parameters for watermarked text
+generation_params:
+  max_new_tokens: 3000
+  min_new_tokens: 2800
+  do_sample: true
+  temperature: 0.7
+  top_p: 0.9
+  repetition_penalty: 1.2
+  no_repeat_ngram_size: 3
+  early_stopping: true
+
+# Paraphrasing model
+paraphrase_model:
+  repo_id: "TheBloke/Mistral-7B-Instruct-v0.2-GGUF"
+  filename: "mistral-7b-instruct-v0.2.Q4_K_M.gguf"
+  n_ctx: 4096
+  n_gpu_layers: -1  # Use all GPU layers
+
+# Paraphrase generation parameters
+paraphrase_params:
+  max_tokens_multiplier: 1.5  # max_tokens = target_words * multiplier
+  temperature: 0.8
+  top_p: 0.95
+  stop_tokens: ["<s>", "</s>"]
+  word_count_tolerance: 50  # +/- tolerance for word count
+
+# HuggingFace settings
+huggingface:
+  cache_dir: "~/.cache/huggingface"
+  use_auth_token: true  # Will use HF_TOKEN environment variable
+
+# CUDA/GPU settings
+gpu:
+  cuda_visible_devices: "0"
+  pytorch_cuda_alloc_conf: "max_split_size_mb:512"
+
+# File processing settings
+processing:
+  batch_size: 10
+  save_frequency: 50
+  resume_from_checkpoint: true
+
+# Paths for models (can be overridden by command line)
+model_paths:
+  watermark_model_cache: "models/watermark"
+  paraphrase_model_dir: "models/paraphrase"
+
+# Detection settings
+detection:
+  tokenizer_model: "meta-llama/Llama-2-7b-hf"  # Same as watermark model
+  min_prefix_len: 1
+  ignore_repeated_bigrams: false
+  batch_processing: true
+  save_interval: 50  # Save progress every N samples
