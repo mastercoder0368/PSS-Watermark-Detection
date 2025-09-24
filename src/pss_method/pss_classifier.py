@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import (accuracy_score, roc_auc_score,
+from sklearn.metrics import (roc_auc_score,
                              confusion_matrix, precision_recall_fscore_support)
 
 
@@ -167,7 +167,6 @@ class PSSClassifier:
         preds = clf.predict(X_test)
         probs = clf.predict_proba(X_test)[:, 1]
 
-        accuracy = accuracy_score(y_test, preds)
         auc = roc_auc_score(y_test, probs)
         cm = confusion_matrix(y_test, preds)
         precision, recall, f1, _ = precision_recall_fscore_support(
@@ -176,7 +175,6 @@ class PSSClassifier:
 
         result = {
             'Experiment': experiment_name,
-            'Accuracy (%)': f"{accuracy * 100:.2f}",
             'AUC': f"{auc:.3f}",
             'Precision': round(precision, 4),
             'Recall': round(recall, 4),
@@ -184,7 +182,6 @@ class PSSClassifier:
             'ConfusionMatrix': cm.tolist()
         }
 
-        print(f"  Accuracy: {accuracy * 100:.2f}%")
         print(f"  AUC: {auc:.3f}")
         print(f"  F1: {f1:.3f}")
 
