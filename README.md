@@ -79,7 +79,7 @@ The PSS (Paraphrase Stability Score) method introduces a novel approach to water
 5. **Classification:** XGBoost classifier combining PSS with static features
 
 ## Experimental Setup
-* Dataset: PG-19 (1000 samples, 2000 words each)
+* Dataset: PG-19 (1000 samples, 2000 tokens each)
 * Watermarking Model: Llama-2-7B
 * Paraphrasing Model: Mistral-7B-Instruct
 
